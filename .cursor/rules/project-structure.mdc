@@ -1,0 +1,48 @@
+# NestJS TypeORM Demo Project Structure
+
+This is a NestJS application with TypeORM for PostgreSQL database management. The project follows a modular architecture with clear separation of concerns.
+
+## Main Entry Points
+
+- [main.ts](mdc:src/main.ts) - Application bootstrap and configuration
+- [app.module.ts](mdc:src/app.module.ts) - Root module with TypeORM configuration and feature modules
+
+## Core Architecture
+
+### Database Configuration
+
+- TypeORM is configured in [app.module.ts](mdc:src/app.module.ts) with PostgreSQL
+- Uses environment variables for database connection (DB_PORT, POSTGRES_PASSWORD, DB_NAME)
+- Auto-loads entities and synchronizes schema in development mode
+- Database schema is defined in [seed.sql](mdc:seed.sql)
+
+### Entity Layer
+
+- [entities/article.entity.ts](mdc:src/entities/article.entity.ts) - Article entity with ManyToOne relationship to Writer
+- [entities/writer.entity.ts](mdc:src/entities/writer.entity.ts) - Writer entity with OneToMany relationship to Articles
+
+### Feature Modules
+
+- **Writers Module**: [writers/](mdc:src/writers/) - Manages writer CRUD operations
+- **Articles Module**: [articles/](mdc:src/articles/) - Manages article CRUD operations with writer relationships
+
+### Module Structure Pattern
+
+Each feature module follows this structure:
+
+- `*.module.ts` - Module definition with TypeORM repository imports
+- `*.controller.ts` - REST API endpoints
+- `*.service.ts` - Business logic and database operations
+- `*.spec.ts` - Unit tests
+
+## Development Guidelines
+
+- Use TypeORM decorators for entity relationships
+- Implement proper error handling with NestJS exceptions
+- Follow NestJS dependency injection patterns
+- Use repository pattern for database operations
+  description:
+  globs:
+  alwaysApply: false
+
+---

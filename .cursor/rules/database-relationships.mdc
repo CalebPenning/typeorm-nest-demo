@@ -1,0 +1,56 @@
+# Database Relationships and TypeORM Patterns
+
+## Current Entity Relationships
+
+### Writer-Article Relationship
+
+- **Writer** has OneToMany relationship with Articles
+- **Article** has ManyToOne relationship with Writer
+- Cascade delete is configured: when a Writer is deleted, all their Articles are deleted
+
+### Entity Definitions
+
+- [Writer Entity](mdc:src/entities/writer.entity.ts): Primary entity with name, email, and articles collection
+- [Article Entity](mdc:src/entities/article.entity.ts): Secondary entity with title, content, and writer reference
+
+## TypeORM Best Practices
+
+### Relationship Decorators
+
+- Use `@OneToMany(() => Entity, (entity) => entity.property)` for one-to-many
+- Use `@ManyToOne(() => Entity, (entity) => entity.property)` for many-to-one
+- Always specify the inverse side of relationships
+- Use `{ onDelete: 'CASCADE' }` for automatic cleanup
+
+### Repository Operations
+
+- Use `relations: ['writer']` or `relations: ['articles']` to include related data
+- Implement proper error handling for missing related entities
+- Use `findOne({ where: { id }, relations: ['writer'] })` for single records with relations
+- Use `find({ relations: ['writer'] })` for collections with relations
+
+### Service Layer Patterns
+
+- Always validate related entity existence before creating relationships
+- Use `NotFoundException` when related entities don't exist
+- Handle cascade operations properly in service methods
+- Implement proper transaction handling for complex operations
+
+## Database Schema
+
+- Schema is defined in [seed.sql](mdc:seed.sql)
+- Uses PostgreSQL with proper foreign key constraints
+- Implements CASCADE delete for writer-article relationships
+- Uses appropriate column types (VARCHAR, TEXT, SERIAL)
+
+## Query Patterns
+
+- Load relations explicitly when needed
+- Use TypeORM query builder for complex queries
+- Implement proper pagination for large datasets
+- Use eager loading sparingly to avoid N+1 problems
+  description:
+  globs:
+  alwaysApply: false
+
+---

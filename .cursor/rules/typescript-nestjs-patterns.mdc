@@ -1,0 +1,53 @@
+# TypeScript and NestJS Coding Patterns
+
+## TypeScript Best Practices
+
+- Use strict TypeScript configuration as defined in [tsconfig.json](mdc:tsconfig.json)
+- Always define proper types for DTOs and service parameters
+- Use interfaces for complex data structures
+- Prefer `async/await` over Promise chains
+- Use proper error handling with typed exceptions
+
+## NestJS Patterns
+
+### Controller Patterns
+
+- Use `@Controller()` decorator with route prefix
+- Implement standard CRUD operations: `@Get()`, `@Post()`, `@Patch()`, `@Delete()`
+- Use `@Body()` for request data, `@Param()` for URL parameters
+- Return proper HTTP status codes
+- Follow RESTful naming conventions
+
+### Service Patterns
+
+- Use `@Injectable()` decorator
+- Inject repositories using `@InjectRepository()`
+- Implement proper error handling with `NotFoundException`
+- Use TypeORM repository methods for database operations
+- Always handle async operations properly
+
+### Entity Patterns
+
+- Use TypeORM decorators: `@Entity()`, `@PrimaryGeneratedColumn()`, `@Column()`
+- Define relationships with `@ManyToOne()`, `@OneToMany()`, `@OneToOne()`, `@ManyToMany()`
+- Use proper column types and constraints
+- Implement cascade operations where appropriate
+
+### Module Patterns
+
+- Import `TypeOrmModule.forFeature()` for entity repositories
+- Export services for use in other modules
+- Follow single responsibility principle
+
+## Code Style
+
+- Use semicolons consistently
+- Follow ESLint configuration in [eslint.config.mjs](mdc:eslint.config.mjs)
+- Use Prettier for code formatting
+- Write descriptive variable and function names
+- Add JSDoc comments for complex methods
+  description:
+  globs:
+  alwaysApply: false
+
+---

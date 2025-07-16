@@ -1,0 +1,79 @@
+# API Endpoints and REST Conventions
+
+## Current API Structure
+
+### Writers Endpoints
+
+- `GET /writers` - Get all writers with their articles
+- `GET /writers/:id` - Get a specific writer with their articles
+- `POST /writers` - Create a new writer
+- `PATCH /writers/:id` - Update a writer
+- `DELETE /writers/:id` - Delete a writer (cascades to articles)
+
+### Articles Endpoints
+
+- `GET /articles` - Get all articles with writer information
+- `GET /articles/:id` - Get a specific article with writer information
+- `POST /articles` - Create a new article (requires writerId)
+- `PATCH /articles/:id` - Update an article
+- `DELETE /articles/:id` - Delete an article
+
+## REST Conventions
+
+### HTTP Methods
+
+- `GET` - Retrieve data (safe, idempotent)
+- `POST` - Create new resources
+- `PATCH` - Partial updates to existing resources
+- `DELETE` - Remove resources
+
+### URL Patterns
+
+- Use plural nouns for resource collections: `/articles`, `/writers`
+- Use ID parameters for specific resources: `/articles/:id`
+- Follow hierarchical relationships when appropriate
+
+### Request/Response Patterns
+
+- Use DTOs for request validation
+- Return consistent response structures
+- Include related data when requested
+- Use proper HTTP status codes
+
+## Controller Implementation Patterns
+
+### Standard CRUD Operations
+
+```typescript
+@Get()           // findAll
+@Get(':id')      // findOne
+@Post()          // create
+@Patch(':id')    // update
+@Delete(':id')   // remove
+```
+
+### Parameter Handling
+
+- Use `@Param('id')` for URL parameters
+- Use `@Body()` for request body data
+- Convert string IDs to numbers when needed
+- Validate input data with DTOs
+
+### Error Handling
+
+- Return `NotFoundException` for missing resources
+- Use appropriate HTTP status codes
+- Provide meaningful error messages
+- Handle validation errors gracefully
+
+## Data Transfer Objects (DTOs)
+
+- Define clear interfaces for request/response data
+- Use optional properties for partial updates
+- Include validation decorators when needed
+- Separate create and update DTOs if necessary
+  description:
+  globs:
+  alwaysApply: false
+
+---

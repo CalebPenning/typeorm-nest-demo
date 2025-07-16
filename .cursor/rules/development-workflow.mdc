@@ -1,0 +1,74 @@
+# Development Workflow and Testing
+
+## Available Scripts
+- `npm run build` - Build the application
+- `npm run start:dev` - Start in development mode with hot reload
+- `npm run start:debug` - Start with debug mode
+- `npm run start:prod` - Start production build
+- `npm run test` - Run unit tests
+- `npm run test:e2e` - Run end-to-end tests
+- `npm run lint` - Run ESLint with auto-fix
+- `npm run format` - Format code with Prettier
+
+## Testing Strategy
+
+### Unit Tests
+- Test files follow `*.spec.ts` pattern
+- Located alongside source files
+- Use Jest testing framework
+- Mock dependencies using `@nestjs/testing`
+- Test service methods and business logic
+
+### End-to-End Tests
+- Located in [test/](mdc:test/) directory
+- Use [jest-e2e.json](mdc:test/jest-e2e.json) configuration
+- Test complete API endpoints
+- Use supertest for HTTP assertions
+- Test database operations and relationships
+
+### Test Patterns
+- Use descriptive test names
+- Follow AAA pattern (Arrange, Act, Assert)
+- Mock external dependencies
+- Test both success and error scenarios
+- Use proper test data setup and cleanup
+
+## Database Management
+
+### Development Setup
+- Use PostgreSQL with configuration from [app.module.ts](mdc:src/app.module.ts)
+- Schema synchronization enabled in development mode
+- Use [seed.sql](mdc:seed.sql) for initial data setup
+- Environment variables for database configuration
+
+### Database Operations
+- Use TypeORM migrations for schema changes
+- Implement proper transaction handling
+- Use repository pattern for data access
+- Handle relationships and cascades properly
+
+## Code Quality
+
+### Linting and Formatting
+- ESLint configuration in [eslint.config.mjs](mdc:eslint.config.mjs)
+- Prettier for code formatting
+- TypeScript strict mode enabled
+- Consistent code style across the project
+
+### Best Practices
+- Follow NestJS conventions
+- Use dependency injection
+- Implement proper error handling
+- Write self-documenting code
+- Add JSDoc comments for complex logic
+
+## Environment Configuration
+- Use environment variables for configuration
+- Separate development and production settings
+- Never commit sensitive data
+- Use `.env` files for local development
+- Validate required environment variables
+description:
+globs:
+alwaysApply: false
+---
