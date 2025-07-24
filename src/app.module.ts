@@ -12,12 +12,14 @@ config()
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_HOST,
       port: +(process.env.DB_PORT || '5432'),
-      username: 'postgres',
-      password: process.env.POSTGRES_PASSWORD,
+      url: process.env.DB_URL,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
+      ssl: true, // only needed for hosted db
       synchronize: process.env.NODE_ENV === 'development', // For dev only! Don't use in production
     }),
     WritersModule,
